@@ -1,0 +1,10 @@
+body{
+    background-color: rgb(68, 138, 218);
+    color: white;
+    width: 75%;
+    margin: auto;
+}
+
+form{
+    margin-bottom: 100px;
+}
