@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/E-kenny/resume/print"
 	"github.com/go-sql-driver/mysql"
 	// _ "github.com/go-sql-driver/mysql"
 )
@@ -19,6 +20,9 @@ type Response struct {
 }
 
 func main() {
+	//Task 2, this functon prints my name
+	print.Name()
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080" // Default port if not specified
