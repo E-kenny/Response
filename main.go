@@ -75,12 +75,14 @@ func resume(w http.ResponseWriter, r *http.Request) {
 }
 
 func dbConn() (db *sql.DB) {
-	// os.Setenv("USERNAME", "root")
-	// os.Setenv("PASSWORD", "E_kenny246810")
-	dbDriver := "mysql"
-	dbUser := os.Getenv("USERNAME") //"root"
-	dbPass := os.Getenv("PASSWORD") //"E_kenny246810"
-	dbName := "go-mysql-crud"
+	// os.Setenv("DB_USERNAME", "root")
+	// os.Setenv("DB_PASSWORD", "E_kenny246810")
+	// os.Setenv("DB_CONNECTION", "mysql")
+	// os.Setenv("DB_DATABASE", "go-mysql-crud")
+	dbDriver := os.Getenv("DB_CONNECTION")
+	dbUser := os.Getenv("DB_USERNAME")
+	dbPass := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_DATABASE")
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
 	if err != nil {
 		panic(err.Error())
