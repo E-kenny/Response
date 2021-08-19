@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/go-sql-driver/mysql"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -79,11 +80,17 @@ func dbConn() (db *sql.DB) {
 	// os.Setenv("DB_PASSWORD", "E_kenny246810")
 	// os.Setenv("DB_CONNECTION", "mysql")
 	// os.Setenv("DB_DATABASE", "go-mysql-crud")
+	// os.Setenv("DB_HOST", "127.0.0.1:3306")
+	cfg := mysql.Config{
+		User:   os.Getenv("DB_USERNAME"),
+		Passwd: os.Getenv("DB_PASSWORD"),
+		Net:    "tcp",
+		Addr:   "DB_HOST",
+		DBName: "DB_DATABASE",
+	}
 	dbDriver := os.Getenv("DB_CONNECTION")
-	dbUser := os.Getenv("DB_USERNAME")
-	dbPass := os.Getenv("DB_PASSWORD")
-	dbName := os.Getenv("DB_DATABASE")
-	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+
+	db, err := sql.Open(dbDriver, cfg.FormatDSN())
 	if err != nil {
 		panic(err.Error())
 	}
