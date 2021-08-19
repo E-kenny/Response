@@ -17,8 +17,12 @@ type Response struct {
 }
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default port if not specified
+	}
 	server := http.Server{
-		Addr: "127.0.0.1:8080",
+		Addr: ":" + port,
 	}
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 	http.HandleFunc("/", resume)
@@ -71,7 +75,8 @@ func resume(w http.ResponseWriter, r *http.Request) {
 }
 
 func dbConn() (db *sql.DB) {
-
+	// os.Setenv("USERNAME", "root")
+	// os.Setenv("PASSWORD", "E_kenny246810")
 	dbDriver := "mysql"
 	dbUser := os.Getenv("USERNAME") //"root"
 	dbPass := os.Getenv("PASSWORD") //"E_kenny246810"
