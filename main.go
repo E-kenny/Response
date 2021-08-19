@@ -91,7 +91,7 @@ func dbConn() (db *sql.DB) {
 		DBName: os.Getenv("DB_DATABASE"),
 	}
 	dbDriver := os.Getenv("DB_CONNECTION")
-	cfg.AllowNativePasswords = false
+	cfg.AllowNativePasswords = true
 	db, err := sql.Open(dbDriver, cfg.FormatDSN())
 	if err != nil {
 		panic(err.Error())
