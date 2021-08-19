@@ -4,11 +4,12 @@ import (
 	"database/sql"
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 	"os"
 
 	"github.com/go-sql-driver/mysql"
-	_ "github.com/go-sql-driver/mysql"
+	// _ "github.com/go-sql-driver/mysql"
 )
 
 type Response struct {
@@ -81,12 +82,13 @@ func dbConn() (db *sql.DB) {
 	// os.Setenv("DB_CONNECTION", "mysql")
 	// os.Setenv("DB_DATABASE", "go-mysql-crud")
 	// os.Setenv("DB_HOST", "127.0.0.1:3306")
+
 	cfg := mysql.Config{
 		User:   os.Getenv("DB_USERNAME"),
 		Passwd: os.Getenv("DB_PASSWORD"),
 		Net:    "tcp",
-		Addr:   "DB_HOST",
-		DBName: "DB_DATABASE",
+		Addr:   os.Getenv("DB_HOST"),
+		DBName: os.Getenv("DB_DATABASE"),
 	}
 	dbDriver := os.Getenv("DB_CONNECTION")
 
@@ -94,5 +96,11 @@ func dbConn() (db *sql.DB) {
 	if err != nil {
 		panic(err.Error())
 	}
+
+	pingErr := db.Ping()
+	if pingErr != nil {
+		log.Fatal(pingErr)
+	}
+	fmt.Println("Connected!")
 	return db
 }
