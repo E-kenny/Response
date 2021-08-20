@@ -13,3 +13,8 @@ img{
     height: 50px;
     padding: 50px 0px;
 }
+
+input{
+    padding: 6px;
+    margin: 4px;
+}
