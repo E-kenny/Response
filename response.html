@@ -4,16 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/tailwind.css">
     <title>Response</title>
 </head>
-<body>
-    <h2>{{.Email}}</h2>
-    <h3>You just sent Ekene Obiasogu a message</h3>
-    Content:
-    <P>{{.Message}}</P>
-    <div>    
-        <a href="/resume">Back to resume</a>
+
+<body class="text-white" style="background-color: #393939;">
+    <div class="mb-12 shadow" style="background-color:#ff5a09;" id="home">
+        <img class="w-2/4 h-48 m-auto shadow" src="public/images/IMG_20200525_135043.jpg">
+       </div>
+
+    <div class="mx-auto w-11/12">
+        <h2 class="text-2xl">{{.Email}}</h2>
+        <h3 class="text-3xl"> You just sent Ekene Obiasogu a message</h3>
+        <h3 class="text-2xl">  Content:</h3>
+        <P>{{.Message}}</P>
+
+        <div>    
+            <a href="/resume">Back to resume</a>
+        </div>
+
     </div>
+
+    <div >
+        <footer class="m-auto w-48 mb-12">
+        <a href="#home">back to top </a>
+        <span> &copy; E_kenny</span>
+        </footer>
+        
+        </div>
 </body>
 </html>

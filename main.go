@@ -31,9 +31,14 @@ func main() {
 		Addr: ":" + port,
 	}
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
-	http.HandleFunc("/", resume)
+	http.HandleFunc("/resume", resume)
+	http.HandleFunc("/", home)
 	fmt.Println("server is running")
 	server.ListenAndServe()
+}
+
+func home(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "home.html")
 }
 
 func resume(w http.ResponseWriter, r *http.Request) {
