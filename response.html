@@ -5,6 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="public/css/tailwind.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="httpps://smtpjs.com/v3/smtp.js"></script>
+    <script src="index.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200&display=swap" rel="stylesheet">
     <title>Response</title>
 </head>
 
@@ -15,24 +23,30 @@
 
     <div class="mx-auto w-11/12">
         <h2 class="text-2xl">{{.Email}}</h2>
-        <h3 class="text-3xl"> You just sent Ekene Obiasogu a message</h3>
+        <h3 class="text-xl"> You just sent Ekene Obiasogu a message</h3>
         <h3 class="text-2xl">  Content:</h3>
         <P>{{.Message}}</P>
 
-        <div>    
-            <a href="/resume">Back to resume</a>
+        <div class="m-auto w-20">
+            <button class="mt-8 bg-auto p-1 rounded md:text-sm text-xs" style="background-color: #FF5a09;"><a href="/resume"> <svg class="fill-current text-white stroke-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><polygon points="3.828 9 9.899 2.929 8.485 1.515 0 10 .707 10.707 8.485 18.485 9.899 17.071 3.828 11 20 11 20 9 3.828 9"/></svg>Portfolio </a></button>
         </div>
-
-        <button class="mt-8 bg-auto p-1 rounded md:text-sm text-xs" style="background-color: #FF5a09;"><a href="/resume"> <svg class="fill-current text-white stroke-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><polygon points="3.828 9 9.899 2.929 8.485 1.515 0 10 .707 10.707 8.485 18.485 9.899 17.071 3.828 11 20 11 20 9 3.828 9"/></svg>Portfolio </a></button>
+       
 
     </div>
 
-    <div >
-        <footer class="m-auto w-48 mb-12">
-        <a href="#home">back to top </a>
-        <span> &copy; E_kenny</span>
-        </footer>
-        
+    <div class="flex flex-wrap gap-14 justify-center m-3" >
+        <a class="md:text-4xl text-lg" href="https://twitter.com/Engr_Ekenny?s=09" ><i class="fa fa-twitter" aria-hidden="true"></i> </a>
+        <a class="md:text-4xl text-lg" href="https://www.facebook.com/obiasogu.ekene"><i class="fa fa-facebook" aria-hidden="true"></i> </a>
+        <a class="md:text-4xl text-lg" href="https://www.linkedin.com/in/ekenny47"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+        <a class="md:text-4xl text-lg" href="https://instagram.com/e_kenny47"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+        </div>
+        <br>
+
+        <div >
+            <footer class="md:text-lg text-base m-auto md:w-60 w-48 mb-3">
+                <div> <span> &copy; Copyright 2021 E_kenny</span></div> 
+            </footer>
+            
         </div>
 </body>
 </html>
