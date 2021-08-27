@@ -68,8 +68,8 @@ func resume(w http.ResponseWriter, r *http.Request) {
 
 		for selDB.Next() {
 			var id int
-			var email, message string
-			err = selDB.Scan(&id, &email, &message)
+			var email, message, created string
+			err = selDB.Scan(&id, &email, &message, &created)
 			if err != nil {
 				panic(err.Error())
 			}
