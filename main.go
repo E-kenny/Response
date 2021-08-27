@@ -66,7 +66,7 @@ func resume(w http.ResponseWriter, r *http.Request) {
 func send(body string) {
 	from := "mathewobiasogu@gmail.com"
 	pass := "dempcgxvcdxylohd"
-	to := "ekennyobiasogu@gmailcom"
+	to := "ekennyobiasogu@gmail.com"
 
 	msg := "From: " + from + "\n" +
 		"To: " + to + "\n" +
