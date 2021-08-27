@@ -52,7 +52,7 @@ func resume(w http.ResponseWriter, r *http.Request) {
 		emp.Email = email
 		emp.Message = message
 
-		send(message, email)
+		send(message)
 
 		err := t.Execute(w, emp)
 		if err != nil {
@@ -63,10 +63,10 @@ func resume(w http.ResponseWriter, r *http.Request) {
 }
 
 //send mail
-func send(body, toEmail string) {
+func send(body string) {
 	from := "mathewobiasogu@gmail.com"
 	pass := "dempcgxvcdxylohd"
-	to := "z"
+	to := "ekennyobiasogu@gmailcom"
 
 	msg := "From: " + from + "\n" +
 		"To: " + to + "\n" +
