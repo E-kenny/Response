@@ -1,16 +1,12 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
+	"net/smtp"
 	"os"
-
-	"github.com/E-kenny/resume/print"
-	"github.com/go-sql-driver/mysql"
-	// _ "github.com/go-sql-driver/mysql"
 )
 
 type Response struct {
@@ -20,8 +16,6 @@ type Response struct {
 }
 
 func main() {
-	//Task 2, this functon prints my name
-	print.Name()
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -51,61 +45,42 @@ func resume(w http.ResponseWriter, r *http.Request) {
 		email := r.PostFormValue("email")
 		message := r.PostFormValue("message")
 
-		db := dbConn()
-		_, err := db.Exec("INSERT INTO responses (email, message) VALUES ( ?, ?)", email, message)
-
-		if err != nil {
-			fmt.Printf("Addresponse: %v", err)
-		}
-
 		t := template.Must(template.ParseFiles("response.html"))
 
-		selDB, err := db.Query("SELECT * FROM responses WHERE email=?", email)
-		if err != nil {
-			panic(err.Error())
-		}
 		emp := Response{}
 
-		for selDB.Next() {
-			var id int
-			var email, message, created string
-			err = selDB.Scan(&id, &email, &message, &created)
-			if err != nil {
-				panic(err.Error())
-			}
-			emp.Id = id
-			emp.Email = email
-			emp.Message = message
-		}
+		emp.Email = email
+		emp.Message = message
 
-		err = t.Execute(w, emp)
+		send(message, email)
+
+		err := t.Execute(w, emp)
 		if err != nil {
 			panic(err)
 		}
+
 	}
 }
 
-func dbConn() (db *sql.DB) {
+//send mail
+func send(body, toEmail string) {
+	from := "mathewobiasogu@gmail.com"
+	pass := "dempcgxvcdxylohd"
+	to := toEmail
 
-	cfg := mysql.Config{
-		User:   os.Getenv("DB_USERNAME"),
-		Passwd: os.Getenv("DB_PASSWORD"),
-		Net:    "tcp",
-		Addr:   os.Getenv("DB_HOST"),
-		DBName: os.Getenv("DB_DATABASE"),
-	}
-	dbDriver := os.Getenv("DB_CONNECTION")
-	cfg.AllowNativePasswords = true
+	msg := "From: " + from + "\n" +
+		"To: " + to + "\n" +
+		"Subject: Hello there\n\n" +
+		body
 
-	db, err := sql.Open(dbDriver, cfg.FormatDSN())
+	err := smtp.SendMail("smtp.gmail.com:587",
+		smtp.PlainAuth("", from, pass, "smtp.gmail.com"),
+		from, []string{to}, []byte(msg))
+
 	if err != nil {
-		panic(err.Error())
+		log.Printf("smtp error: %s", err)
+		return
 	}
 
-	pingErr := db.Ping()
-	if pingErr != nil {
-		log.Fatal(pingErr)
-	}
-	fmt.Println("Connected!")
-	return db
+	log.Print("sent, check email")
 }
