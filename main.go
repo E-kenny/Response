@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"net/smtp"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 type Response struct {
@@ -52,7 +54,7 @@ func resume(w http.ResponseWriter, r *http.Request) {
 		emp.Email = email
 		emp.Message = message
 
-		send(message)
+		send(message, email)
 
 		err := t.Execute(w, emp)
 		if err != nil {
@@ -63,14 +65,15 @@ func resume(w http.ResponseWriter, r *http.Request) {
 }
 
 //send mail
-func send(body string) {
-	from := "mathewobiasogu@gmail.com"
-	pass := "dempcgxvcdxylohd"
+func send(body, senderEmail string) {
+	godotenv.Load(".env")
+	from := os.Getenv("EMAIL_USERNAME")
+	pass := os.Getenv("EMAIL_PASSWORD")
 	to := "ekennyobiasogu@gmail.com"
 
 	msg := "From: " + from + "\n" +
 		"To: " + to + "\n" +
-		"Subject: Portfolio\n\n" +
+		"Subject: " + senderEmail + " message\n\n" +
 		body
 
 	err := smtp.SendMail("smtp.gmail.com:587",
