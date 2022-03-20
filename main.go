@@ -18,7 +18,7 @@ type Response struct {
 }
 
 func main() {
-
+	godotenv.Load(".env")
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080" // Default port if not specified
@@ -27,7 +27,7 @@ func main() {
 		Addr: ":" + port,
 	}
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
-	http.HandleFunc("/resume", resume)
+	http.HandleFunc("/response", response)
 	http.HandleFunc("/", home)
 	fmt.Println("server is running")
 	server.ListenAndServe()
@@ -37,12 +37,9 @@ func home(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "home.html")
 }
 
-func resume(w http.ResponseWriter, r *http.Request) {
+func response(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
-
-	case "GET":
-		http.ServeFile(w, r, "resume.html")
 	case "POST":
 		email := r.PostFormValue("email")
 		message := r.PostFormValue("message")
@@ -66,7 +63,6 @@ func resume(w http.ResponseWriter, r *http.Request) {
 
 //send mail
 func send(body, senderEmail string) {
-	godotenv.Load(".env")
 	from := os.Getenv("EMAIL_USERNAME")
 	pass := os.Getenv("EMAIL_PASSWORD")
 	to := "ekennyobiasogu@gmail.com"
