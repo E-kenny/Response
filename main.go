@@ -70,7 +70,7 @@ func send(body, senderEmail string) {
 	msg := "From: " + from + "\n" +
 		"To: " + to + "\n" +
 		"Subject: PORTFOLIO \n\n" +
-		body + senderEmail
+		body + " from" + senderEmail
 
 	err := smtp.SendMail("smtp.gmail.com:587",
 		smtp.PlainAuth("", from, pass, "smtp.gmail.com"),
