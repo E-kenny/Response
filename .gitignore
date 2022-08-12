@@ -3,6 +3,7 @@
 *.aar
 *.ap_
 *.aab
+	}
 
 # Files for the ART/Dalvik VM
 *.dex
@@ -29,6 +30,7 @@ proguard/
 
 # Log Files
 *.log
+To https://github.com/E-kenny/creativeminds.git
 
 # Android Studio Navigation editor temp files
 .navigation/
